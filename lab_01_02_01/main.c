@@ -25,6 +25,5 @@ double calc_area(double a, double b, double fi)
 {
     double fi_rad = fi * PI / 180;
     double area = (b + a) * fabs((b - a)) * tan(fi_rad) / 4;
-    printf("%lf", area);
     return area;
 }
