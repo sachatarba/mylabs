@@ -14,7 +14,7 @@ int main(void)
     int exit_code = 0;
     int number = 0;
 
-    if (input(&number))
+    if (input(&number) && number != 0)
     {
         print_number(number);
     }
@@ -36,18 +36,18 @@ void print_number(int number)
 
 bool input(int *number)
 {
-    const char DIGITS[10] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+    const char digits[10] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
     char source[BUFF_SIZE];
     bool is_str_number = true;
     bool is_el_digit = false;
     scanf("%s", source);
-    
+
     for (size_t i = 0; i < strlen(source); ++i)
     {
         is_el_digit = false;
-        for (size_t j = 0; j < sizeof(DIGITS) / sizeof(DIGITS[0]); ++j)
+        for (size_t j = 0; j < sizeof(digits) / sizeof(digits[0]); ++j)
         {
-            if (source[i] == DIGITS[j])
+            if (source[i] == digits[j])
             {
                 is_el_digit = true;
             }
