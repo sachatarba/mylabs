@@ -10,21 +10,17 @@ double vect_mul(double x1, double y1, double x2, double y2, double x3, double y3
 
 int check_intersection(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4);
 
-bool input(double *numbers);
+bool input(double *numbers, int *exit_code);
 
-void split(char *source, double *numbers);
+void split(char *source, double *numbers, int *exit_code);
 
 int main(void)
 {
     int exit_code = 0;
     double numbers[SIZE];
-    if (input(numbers))
+    if (input(numbers, &exit_code) && exit_code == 0)
     {
         printf("%d", check_intersection(numbers[0], numbers[1], numbers[2], numbers[3], numbers[4], numbers[5], numbers[6], numbers[7]));
-    }
-    else
-    {
-        exit_code = 1;
     }
     return exit_code;
 }
@@ -49,7 +45,7 @@ int check_intersection(double x1, double y1, double x2, double y2, double x3, do
     return is_intersection;
 }
 
-void split(char *source, double *numbers)
+void split(char *source, double *numbers, int *exit_code)
 {
     char buffer[BUFF_SIZE];
     size_t current_sym_in_source = 0, current_sym_in_buffer = 0, current_number = 0;
@@ -69,9 +65,13 @@ void split(char *source, double *numbers)
         }
         ++current_sym_in_source;
     }
+    if (current_number != 8)
+    {
+        *exit_code = 1;
+    }
 }
 
-bool input(double *numbers)
+bool input(double *numbers, int *exit_code)
 {
     const char digits[12] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', ' ', '\n' };
 
@@ -96,7 +96,7 @@ bool input(double *numbers)
     }
     if (is_str_numbers)
     {
-        split(source, numbers);
+        split(source, numbers, exit_code);
     }
     return is_str_numbers;
 }
