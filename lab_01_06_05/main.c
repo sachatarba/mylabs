@@ -65,7 +65,7 @@ void split(char *source, double *numbers, int *exit_code)
         }
         ++current_sym_in_source;
     }
-    if (current_number != 8)
+    if (current_number != 7)
     {
         *exit_code = 1;
     }
