@@ -7,7 +7,7 @@
 #define ERR_OK 0
 #define ERR_IO 1
 #define ERR_INCORRECT_VALUES 2
-#define EPS 0.0000001
+#define EPS 0.0000000001
 
 double calculate_value(double x, double eps);
 
@@ -19,7 +19,7 @@ int main(void)
     double x, eps = 0;
     if (scanf("%lf%lf", &x, &eps) == 2)
     {
-        if ((fabs(x) - 1. > EPS) || (eps > 1) || (eps < 0))
+        if ((fabs(x) - 1. > EPS) || (eps > 1.) || (eps < 0.) || ((int) x == 1))
         {
             exit_code = ERR_INCORRECT_VALUES;
         }
