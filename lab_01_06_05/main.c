@@ -1,7 +1,14 @@
+#include <math.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#define ERR_OK 0
+#define ERR_IO 1
+#define ERR_NOT_LINE 2
+#define EPS 0.000001
+
 
 double vect_mul(double x1, double y1, double x2, double y2, double x3, double y3);
 
@@ -11,10 +18,16 @@ int main(void)
 {
     int exit_code = 0;
     double xp, yp, xq, yq, xr, yr, xs, ys = 0;
-    char tmp;
-    if ((scanf("%lf%lf%lf%lf%lf%lf%lf%lf%c", &xp, &yp, &xq, &yq, &xr, &yr, &xs, &ys, &tmp) == 9) && (tmp == '\n' || tmp == '\r'))
+    if (scanf("%lf%lf%lf%lf%lf%lf%lf%lf", &xp, &yp, &xq, &yq, &xr, &yr, &xs, &ys) == 8)
     {
-        printf("%d", check_intersection(xp, yp, xq, yq, xr, yr, xs, ys));
+        if (((fabs(xp - xq) < EPS) && (fabs(yp - yq) < EPS)) || ((fabs(xr - xs) < EPS) && (fabs(yr - ys) < EPS)))
+        {
+            exit_code = ERR_NOT_LINE;
+        }
+        else
+        {
+            printf("%d", check_intersection(xp, yp, xq, yq, xr, yr, xs, ys));
+        }
     }
     else
     {
