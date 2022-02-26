@@ -7,9 +7,11 @@
 #define ERR_OK 0
 #define ERR_IO 1
 #define ERR_INCORRECT_VALUES 2
-#define EPS 0.000001
+#define EPS 0.0000001
 
 double calculate_value(double x, double eps);
+
+void print_ans(double x, double eps);
 
 int main(void)
 {
@@ -17,17 +19,13 @@ int main(void)
     double x, eps = 0;
     if (scanf("%lf%lf", &x, &eps) == 2)
     {
-        if ((fabs(x - 1) < EPS) && (fabs(eps - 1) < EPS))
+        if ((fabs(x) - 1. > EPS) || (eps > 1) || (eps < 0))
         {
             exit_code = ERR_INCORRECT_VALUES;
         }
         else
         {
-            double calc_value = calculate_value(x, eps);
-            double real_value = 1 / sqrt(1 - x * x);
-            double abs_error = fabs(real_value - calc_value);
-            double relative_error = abs_error / real_value;
-            printf("%lf %lf %lf %lf", calc_value, real_value, abs_error, relative_error);
+            print_ans(x, eps);
         }
     }
     else
@@ -49,4 +47,13 @@ double calculate_value(double x, double eps)
         current_mul += 2;
     }
     return value;
+}
+
+void print_ans(double x, double eps)
+{
+    double calc_value = calculate_value(x, eps);
+    double real_value = 1 / sqrt(1 - x * x);
+    double abs_error = fabs(real_value - calc_value);
+    double relative_error = abs_error / real_value;
+    printf("%lf %lf %lf %lf", calc_value, real_value, abs_error, relative_error);
 }
