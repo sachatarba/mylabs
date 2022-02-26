@@ -12,9 +12,10 @@ int main(void)
 {
     int exit_code = 0;
     double xp, yp, xq, yq, xr, yr, xs, ys = 0;
+    char tmp;
     if ((scanf("%lf%lf%lf%lf%lf%lf%lf%lf%c", &xp, &yp, &xq, &yq, &xr, &yr, &xs, &ys, &tmp) == 8) && (tmp == '\n' || tmp == '\r' ))
     {
-        printf("%d", check_intesection(xp, yp, xq, yq, xr, yr, xs, ys));
+        printf("%d", check_intersection(xp, yp, xq, yq, xr, yr, xs, ys));
     }
     else
     {
