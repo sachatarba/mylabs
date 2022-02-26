@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-
 double vect_mul(double x1, double y1, double x2, double y2, double x3, double y3);
 
 int check_intersection(double x1, double y1, double x2, double y2, double x3, double y3, double x4, double y4);
@@ -13,7 +12,7 @@ int main(void)
     int exit_code = 0;
     double xp, yp, xq, yq, xr, yr, xs, ys = 0;
     char tmp;
-    if ((scanf("%lf%lf%lf%lf%lf%lf%lf%lf%c", &xp, &yp, &xq, &yq, &xr, &yr, &xs, &ys, &tmp) == 9) && (tmp == '\n' || tmp == '\r' ))
+    if ((scanf("%lf%lf%lf%lf%lf%lf%lf%lf%c", &xp, &yp, &xq, &yq, &xr, &yr, &xs, &ys, &tmp) == 9) && (tmp == '\n' || tmp == '\r'))
     {
         printf("%d", check_intersection(xp, yp, xq, yq, xr, yr, xs, ys));
     }
