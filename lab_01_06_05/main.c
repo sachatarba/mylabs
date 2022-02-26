@@ -12,7 +12,7 @@ int main(void)
 {
     int exit_code = 0;
     double xp, yp, xq, yq, xr, yr, xs, ys = 0;
-    if ((scanf("%lf%lf%lf%lf%lf%lf%lf%lf%c", &xp, &yp, &xq, &yq, &xr, &yr, &xs, &ys, &tmp) == 8) && tmp == '\n')
+    if ((scanf("%lf%lf%lf%lf%lf%lf%lf%lf%c", &xp, &yp, &xq, &yq, &xr, &yr, &xs, &ys, &tmp) == 8) && (tmp == '\n' || tmp == '\r' ))
     {
         printf("%d", check_intesection(xp, yp, xq, yq, xr, yr, xs, ys));
     }
