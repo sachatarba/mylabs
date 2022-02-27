@@ -45,11 +45,13 @@ int main(void)
 
 size_t to_bin(int x)
 {
-    size_t ans = 1;
+    size_t ans = 0;
+    int mul = 1;
     while (x)
     {
-        ans = ans * 10 + x % 2;
+        ans += (x % 2) * mul;
         x = x / 2;
+        mul *= 10;
     }
     return ans;
 }
