@@ -23,6 +23,7 @@ int main(void)
     {
         if ((x1 >= 0) && (x1 < 256) && (x2 >= 0) && (x2 < 256) && (x3 >= 0) && (x3 < 256) && (x4 >= 0) && (x4 < 256))
         {
+            printf("Result: ");
             print_ans(x1, x2, x3, x4);
         }
         else
@@ -33,6 +34,11 @@ int main(void)
     else
     {
         exit_code = ERR_IO;
+    }
+    if (exit_code)
+    {
+        printf("Error: ");
+        printf("INVALID VALUES");
     }
     return exit_code;
 }
@@ -59,7 +65,7 @@ void unpack(size_t b)
         current_mul *= 2;
     }
     printf("%d", ans);
-    putc('\n', stdout);
+    putc(' ', stdout);
 }
 
 void pack(int x, size_t *b)
@@ -68,7 +74,7 @@ void pack(int x, size_t *b)
     {
         printf("%d", get_bit(x, (IN_BYTE - current_bit)));
     }
-    putc('\n', stdout);
+    // putc('\n', stdout);
     *b = to_bin(x);
 }
 
@@ -82,6 +88,7 @@ void print_ans(int x1, int x2, int x3, int x4)
     pack(x2, &b2);
     pack(x3, &b3);
     pack(x4, &b4);
+    putc(' ', stdout);
     unpack(b1);
     unpack(b2);
     unpack(b3);
