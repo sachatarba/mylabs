@@ -5,7 +5,7 @@
 #define ERR_IO 1
 #define ERR_INCORRECT_VALUES 2
 #define IN_BYTE 8
-#define get_bit(value, pos) ((value >> pos) & 1)
+#define GET_BIT(value, pos) ((value >> pos) & 1)
 
 void pack(int x1, size_t *b);
 
@@ -74,9 +74,8 @@ void pack(int x, size_t *b)
 {
     for (int current_bit = 1; current_bit <= IN_BYTE; ++current_bit)
     {
-        printf("%d", get_bit(x, (IN_BYTE - current_bit)));
+        printf("%d", GET_BIT(x, (IN_BYTE - current_bit)));
     }
-    // putc('\n', stdout);
     *b = to_bin(x);
 }
 
