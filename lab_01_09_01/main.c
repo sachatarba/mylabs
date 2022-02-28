@@ -10,7 +10,7 @@ double calc_sum(int *exit_code);
 int main(void)
 {
     int exit_code = ERR_OK;
-    double sum = calc_sum(&current_iter);
+    double sum = calc_sum(&exit_code);
     
     if (!exit_code)
     {
@@ -28,8 +28,8 @@ double calc_sum(int *exit_code)
     size_t current_iter = 1;
     while ((res = scanf("%lf", &x)) != -1 && x >= 0)
     {
-        sum += sqrt(x / *current_iter);
-        ++(*current_iter);
+        sum += sqrt(x / current_iter);
+        ++(current_iter);
     }
 
     if (res == -1 || current_iter == 1)
