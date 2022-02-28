@@ -66,8 +66,7 @@ void unpack(size_t b)
         b /= 10;
         current_mul *= 2;
     }
-    printf("%d", ans);
-    putc(' ', stdout);
+    printf("%d ", ans);
 }
 
 void pack(int x, size_t *b)
