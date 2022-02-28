@@ -20,6 +20,7 @@ int main(void)
     {
         printf("%lf", sin(sum));
     }
+
     return exit_code;
 }
 
@@ -27,13 +28,9 @@ double calc_sum(size_t *current_iter)
 {
     double x = 0;
     double sum = 0;
-    while (1)
+    int res = 0;
+    while ((res = scanf("%lf", &x)) != -1 && x >= 0)
     {
-        scanf("%lf", &x);
-        if (x < 0)
-        {
-            break;
-        }
         sum += sqrt(x / *current_iter);
         ++(*current_iter);
     }
