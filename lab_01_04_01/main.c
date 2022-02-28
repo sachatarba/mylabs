@@ -2,7 +2,9 @@
 #define NUM_OF_APARTS 4
 #define NUM_OF_FLOORS 9
 
-void calc_answer(int number_of_apart, int *entrance, int *floor);
+void calc_entrance(int number_of_apart, int *entrance);
+
+void calc_floor(int number_of_apart, int *floor);
 
 int main(void)
 {
@@ -13,7 +15,8 @@ int main(void)
 
     if (scanf("%d", &number_of_apart) == 1)
     {
-        calc_answer(number_of_apart, &entrance, &floor);
+        calc_entrance(number_of_apart, &entrance);
+        calc_floor(number_of_apart, &floor);
         printf("%d %d", entrance, floor);
     }
     else
@@ -23,8 +26,12 @@ int main(void)
     return exit_code;
 }
 
-void calc_answer(int number_of_apart, int *entrance, int *floor)
+void calc_entrance(int number_of_apart, int *entrance)
 {
     *entrance = (number_of_apart - 1) / (NUM_OF_APARTS * NUM_OF_FLOORS) + 1;
+}
+
+void calc_floor(int number_of_apart, int *floor)
+{
     *floor = (((number_of_apart - 1) / NUM_OF_APARTS + 1) - 1) % NUM_OF_FLOORS + 1;
 }
