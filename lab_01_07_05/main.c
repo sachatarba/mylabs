@@ -19,7 +19,7 @@ int main(void)
     double x, eps = 0;
     if (scanf("%lf%lf", &x, &eps) == 2)
     {
-        if ((fabs(x) - 1. > EPS) || (eps > 1.) || (eps < 0.) || ((int) x == 1))
+        if ((fabs(x) - 1. > EPS) || (eps > 1.) || (eps < 0.) || ((int)x == 1))
         {
             exit_code = ERR_INCORRECT_VALUES;
         }

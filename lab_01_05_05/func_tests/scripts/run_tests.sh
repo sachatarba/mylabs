@@ -1,6 +1,6 @@
 #!/bin/bash
 
-gcc --std=c99 -Wall -Werror -Wpedantic -Wextra  -o main.exe ../../main.c
+gcc --std=c99 -Wall -Werror -Wpedantic -Wextra  -o main.exe ../../main.c -lm
 
 counter=1
 for file in ../data/pos*in.txt; do
