@@ -1,4 +1,3 @@
-#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -7,7 +6,7 @@
 
 void print_number(int number);
 
-bool input(int *number);
+int input(int *number);
 
 int main(void)
 {
@@ -33,27 +32,27 @@ void print_number(int number)
     printf("%d", number % 10);
 }
 
-bool input(int *number)
+int input(int *number)
 {
     const char digits[10] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
 
     char source[BUFF_SIZE];
-    bool is_str_number = true;
-    bool is_el_digit = false;
+    int is_str_number = 1;
+    int is_el_digit = 0;
     scanf("%s", source);
     for (size_t i = 0; i < strlen(source); ++i)
     {
-        is_el_digit = false;
+        is_el_digit = 0;
         for (size_t j = 0; j < sizeof(digits) / sizeof(digits[0]); ++j)
         {
             if (source[i] == digits[j])
             {
-                is_el_digit = true;
+                is_el_digit = 1;
             }
         }
         if (!is_el_digit)
         {
-            is_str_number = false;
+            is_str_number = 0;
         }
     }
     if (is_str_number)
