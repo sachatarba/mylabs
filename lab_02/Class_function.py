@@ -15,11 +15,20 @@ class Roots_information:
 
 
 class Function:
+    def __int__(self):
+        pass
+
     def __init__(self, func):
         self.func = func
 
+    def set_function(self, func):
+        self.func = func
+
     def calc_value(self, x):
-        return eval(self.func)
+        try:
+            return eval(self.func)
+        except Exception:
+            return "Error"
 
     def find_root_on_segment(self, start, stop, eps, max_iter):
         iter_counter = 1
@@ -55,8 +64,7 @@ class Function:
 
         return roots_list
 
-
-a = Function("x**2-2*x-3")
-# print(a.calc_value(0))
-# print("{:5f} {:5f} {}".format(*a.find_root_on_segment(1, 2, 0.00001,1000)))
-print(a.find_roots(-2, 4, 3, 0.000001, 1000))
+# a = Function("x**2-2*x-3")
+# # print(a.calc_value(0))
+# # print("{:5f} {:5f} {}".format(*a.find_root_on_segment(1, 2, 0.00001,1000)))
+# print(a.find_roots(-2, 4, 3, 0.000001, 1000))
