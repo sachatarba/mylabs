@@ -77,7 +77,6 @@ void print_array(int *array, int elements_number)
     {
         printf("%d ", array[current_element]);
     }
-
 }
 
 int is_monotone(int *array, int elements_number)
