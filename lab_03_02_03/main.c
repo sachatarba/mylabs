@@ -4,7 +4,6 @@
 #define ERR_INP_MATRIX 1
 #define ERR_INP_DIGIT 2
 #define ERR_NO_MATRIX 3
-#define ERR_NO_RESULT 4
 
 #define MAX_ROWS 10
 #define MAX_COLS 10
@@ -16,6 +15,8 @@ int input_matrix(int **matrix, int *rows, int *cols);
 void transform_matrix(int **matrix, int *buf, int rows, int cols);
 
 void print_matrix(int **matrix, int rows, int cols);
+
+int int_abs(int number);
 
 int has_number_digit(int number, int digit);
 
@@ -38,22 +39,13 @@ int main(void)
     {
         int digit = 0;
 
-        if (scanf("%d", &digit) == 1)
+        if (scanf("%d", &digit) == 1 && digit >= 0 && digit < 10)
         {
-            int old_cols = cols;
-
             del_cols_with_digit(matrix, rows, &cols, digit);
 
             if (cols > 0)
             {
-                if (cols != old_cols)
-                {
-                    print_matrix(matrix, rows, cols);
-                }
-                else
-                {
-                    rc = ERR_NO_RESULT;
-                }
+                print_matrix(matrix, rows, cols);
             }
             else
             {
@@ -117,6 +109,16 @@ void print_matrix(int **matrix, int rows, int cols)
     }
 }
 
+int int_abs(int number)
+{
+    if (number < 0)
+    {
+        number *= -1;
+    }
+    
+    return number;
+}
+
 int has_number_digit(int number, int digit)
 {
     int has_digit = 0;
@@ -145,7 +147,7 @@ int has_col_digit(int **matrix, int rows, int col, int digit)
 
     for (int current_row = 0; current_row < rows && !has_digit; ++current_row)
     {
-        has_digit = has_number_digit(matrix[current_row][col], digit);
+        has_digit = has_number_digit(int_abs(matrix[current_row][col]), digit);
     }
 
     return has_digit;
