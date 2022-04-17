@@ -25,7 +25,7 @@ int main(void)
     int cols = 0;
     transform_matrix(matrix, buf[0], MAX_ROWS, MAX_COLS);
 
-    if (fill_matrix(matrix, &rows, &cols) && 0 < rows && rows <= MAX_ROWS && 0 < cols && cols < MAX_COLS)
+    if (fill_matrix(matrix, &rows, &cols) && 0 < rows && rows <= MAX_ROWS && 0 < cols && cols <= MAX_COLS)
     {
         if (rows == cols)
         {
@@ -35,7 +35,6 @@ int main(void)
         {
             rc = ERR_NO_SQUARE;
         }
-
     }
     else
     {
@@ -117,7 +116,7 @@ int fill_matrix(int **matrix, int *rows, int *cols)
 {
     int rc = 1;
 
-    if (scanf("%d %d",rows, cols) == 2)
+    if (scanf("%d %d", rows, cols) == 2)
     {
         int temp = 1;
         int size = *rows;

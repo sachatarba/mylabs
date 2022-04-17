@@ -111,7 +111,7 @@ void print_matrix(int **matrix, int rows, int cols)
 
 int is_digits_sum_more_or_eq_than(int number, int min_digits_sum)
 {
-    int is_sum_more_or_eq= 0;
+    int is_sum_more_or_eq = 0;
     int current_digit = 0;
     int digits_sum = 0;
     number = abs(number);
