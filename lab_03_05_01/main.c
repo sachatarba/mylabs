@@ -22,11 +22,11 @@ void print_matrix(int **matrix, int rows, int cols);
 
 int is_digits_sum_more_or_eq_than(int number, int min_digits_sum);
 
-void copy_right_numbers_from_matrix_to_array(int **matrix, int rows, int cols, int *array, int *elements_number);
+void copy_number_from_matrix(int **matrix, int rows, int cols, int *array, int *elements_number);
 
 void insert_numbers(int **matrix, int rows, int cols, int *array);
 
-void shift_left(int *a, int n);
+void shift_left(int *array, int element_number);
 
 void shift_left_on_size(int *array, int element_number, int size);
 
@@ -44,7 +44,7 @@ int main(void)
         int array[MAX_ROWS * MAX_COLS] = { 0 };
         int elements_number = 0;
 
-        copy_right_numbers_from_matrix_to_array(matrix, rows, cols, array, &elements_number);
+        copy_number_from_matrix(matrix, rows, cols, array, &elements_number);
 
         if (elements_number != 0)
         {
@@ -114,7 +114,6 @@ int is_digits_sum_more_or_eq_than(int number, int min_digits_sum)
     int is_sum_more_or_eq= 0;
     int current_digit = 0;
     int digits_sum = 0;
-    
     number = abs(number);
 
     while ((number != 0) && digits_sum < min_digits_sum)
@@ -123,13 +122,12 @@ int is_digits_sum_more_or_eq_than(int number, int min_digits_sum)
         number /= TEN_DIV;
         digits_sum += current_digit;
     }
-
     is_sum_more_or_eq = digits_sum >= min_digits_sum;
 
     return is_sum_more_or_eq;
 }
 
-void copy_right_numbers_from_matrix_to_array(int **matrix, int rows, int cols, int *array, int *elements_number)
+void copy_number_from_matrix(int **matrix, int rows, int cols, int *array, int *elements_number)
 {
     *elements_number = 0;
     for (int current_row = 0; current_row < rows; ++current_row)
@@ -145,14 +143,16 @@ void copy_right_numbers_from_matrix_to_array(int **matrix, int rows, int cols, i
     }  
 }
 
-void shift_left(int *a, int n)
+void shift_left(int *array, int element_number)
 {
-    int first = a[0];
-    
-    for (int i = 1; i < n; ++i)
-        a[i-1] = a[i];
-    
-    a[n-1] = first;
+    int first = array[0];
+
+    for (int current_element = 1; current_element < element_number; ++current_element)
+    {
+        array[current_element - 1] = array[current_element];
+    }
+
+    array[element_number - 1] = first;
 }
 
 void shift_left_on_size(int *array, int element_number, int size)
