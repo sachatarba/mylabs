@@ -86,7 +86,7 @@ int is_monotone(int *array, int elements_number)
 
     for (int current_element = 0; current_element < elements_number - 1; ++current_element)
     {
-        if ((array[current_element] <= array[current_element + 1]) != flag)
+        if ((array[current_element] < array[current_element + 1]) != flag && array[current_element] != array[current_element + 1])
         {
             is_monotone = 0;
         } 

@@ -3,4 +3,4 @@
 *.o
 *.pch
 *.gch
-*out.txt
+file_out.txt
