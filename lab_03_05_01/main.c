@@ -30,15 +30,6 @@ void shift_left(int *a, int n);
 
 void shift_left_on_size(int *array, int element_number, int size);
 
-void print_array(int *array, int elements_number)
-{
-    for (int current_element = 0; current_element < elements_number; ++current_element)
-    {
-        printf("%d ", array[current_element]);
-    }
-    printf("\n");
-}
-
 int main(void)
 {
     int rc = ERR_OK;
@@ -65,7 +56,6 @@ int main(void)
         {
             rc = ERR_NO_ARRAY;
         }
-
     }
     else
     {
@@ -155,7 +145,8 @@ void copy_right_numbers_from_matrix_to_array(int **matrix, int rows, int cols, i
     }  
 }
 
-void shift_left(int *a, int n) {
+void shift_left(int *a, int n)
+{
     int first = a[0];
     
     for (int i = 1; i < n; ++i)
