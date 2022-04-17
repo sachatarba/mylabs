@@ -4,6 +4,7 @@
 #define ERR_INP_MATRIX 1
 #define ERR_INP_DIGIT 2
 #define ERR_NO_MATRIX 3
+#define ERR_NO_RESULT 4
 
 #define MAX_ROWS 10
 #define MAX_COLS 10
@@ -39,11 +40,20 @@ int main(void)
 
         if (scanf("%d", &digit) == 1)
         {
+            int old_cols = cols;
+
             del_cols_with_digit(matrix, rows, &cols, digit);
 
             if (cols > 0)
-            {    
-                print_matrix(matrix, rows, cols);
+            {
+                if (cols != old_cols)
+                {
+                    print_matrix(matrix, rows, cols);
+                }
+                else
+                {
+                    rc = ERR_NO_RESULT;
+                }
             }
             else
             {
