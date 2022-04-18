@@ -4,3 +4,4 @@
 *.pch
 *.gch
 file_out.txt
+*.json
