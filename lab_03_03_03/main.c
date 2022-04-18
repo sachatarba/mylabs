@@ -12,6 +12,8 @@ void transform_matrix(int **matrix, int *buf, int rows, int cols);
 
 void print_matrix(int **matrix, int rows, int cols);
 
+void swap(int **row_1, int **row_2);
+
 int min_in_array(int *array, int elements_number);
 
 void sort_rows_by_min_elements(int **matrix, int rows, int cols);
@@ -97,6 +99,13 @@ int min_in_array(int *array, int elements_number)
     return min;
 }
 
+void swap(int **row_1, int **row_2)
+{
+    int *temp_ptr = *row_1;
+    *row_1 = *row_2;
+    *row_2 = temp_ptr;
+}
+
 void sort_rows_by_min_elements(int **matrix, int rows, int cols)
 {
     for (int current_step = 0; current_step < rows - 1; ++current_step)
@@ -105,9 +114,7 @@ void sort_rows_by_min_elements(int **matrix, int rows, int cols)
         {
             if (min_in_array(matrix[current_row], cols) < min_in_array(matrix[current_row + 1], cols))
             {
-                int *temp_ptr = matrix[current_row];
-                matrix[current_row] = matrix[current_row + 1];
-                matrix[current_row + 1] = temp_ptr; 
+                swap(matrix + current_row, matrix + current_row + 1); 
             }
         }
     }
