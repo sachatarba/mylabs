@@ -114,44 +114,42 @@ int test_all(char tests_source_str[][MAX_LEN], int str_number, char tests_source
 {
     int failed_tests = 0;
     int is_test_passed = 0;
-    printf("strchr\n");
+
     for (int current_test_str = 0; current_test_str < str_number; ++current_test_str)
     {
         for (int current_test_char = 0; current_test_char < chars_number; ++current_test_char)
         {
             is_test_passed = test_strchr(tests_source_str[current_test_str], tests_source_chars[current_test_char]);
+            
             if (!is_test_passed)
             {
                 ++failed_tests;
-                printf("%s %c\n", tests_source_str[current_test_str], tests_source_chars[current_test_char]);
             }
         }
     }
-    printf("strrchr\n");
-    is_test_passed = 0;
+
     for (int current_test_str = 0; current_test_str < str_number; ++current_test_str)
     {
         for (int current_test_char = 0; current_test_char < chars_number; ++current_test_char)
         {
-            is_test_passed += test_strrchr(tests_source_str[current_test_str], tests_source_chars[current_test_char]);
+            is_test_passed = test_strrchr(tests_source_str[current_test_str], tests_source_chars[current_test_char]);
+            
             if (!is_test_passed)
             {
                 ++failed_tests;
-                printf("%s %c\n", tests_source_str[current_test_str], tests_source_chars[current_test_char]);
             }
         }
     }
-    printf("strpbrk\n");
-    is_test_passed = 0;
+
     for (int current_test_str = 0; current_test_str < str_number; ++current_test_str)
     {
         for (int next_test_str = 0; next_test_str < str_number; ++next_test_str)
         {
-            is_test_passed += test_strpbrk(tests_source_str[current_test_str], tests_source_str[next_test_str]);
+            is_test_passed = test_strpbrk(tests_source_str[current_test_str], tests_source_str[next_test_str]);
+            
             if (!is_test_passed)
             {
                 ++failed_tests;
-                printf("%s %s\n", tests_source_str[current_test_str], tests_source_str[next_test_str]);
             }
         }
     }
