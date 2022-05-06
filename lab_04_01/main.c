@@ -7,8 +7,8 @@
 
 #define NULL ((void *)0) 
 
-#define STR_TESTS 5
-#define CHAR_TESTS 6
+#define STR_TESTS 6
+#define CHAR_TESTS 7
 
 char *my_strchr(const char *str, int symbol);
 
@@ -26,8 +26,8 @@ int test_all(char tests_source_str[][MAX_LEN], int str_number, char tests_source
 
 int main(void)
 {
-    char source_str[][MAX_LEN] = { "hello, my friend", "\0", "k", "we live in a society", "o,im" };
-    char source_chars[] = { 'h', 'd', 'y', ' ', 'm', 'k' };
+    char source_str[][MAX_LEN] = { "hello, my friend", "\0", "k", "we live in a society", "o,im", "hell\0 no" };
+    char source_chars[] = { 'h', 'd', 'y', ' ', 'm', 'k', '\0' };
 
     int failed_tests = test_all(source_str, STR_TESTS, source_chars, CHAR_TESTS);
 
@@ -50,6 +50,11 @@ char *my_strchr(const char *str, int symbol)
         ++str;
     }
 
+    if (symbol == '\0')
+    {
+        ptr = (char *) str;
+    }
+
     return ptr;
 }
 
@@ -65,6 +70,11 @@ char *my_strrchr(const char *str, int symbol)
         }
 
         ++str;
+    }
+
+    if (symbol == '\0')
+    {
+        ptr = (char *) str;
     }
 
     return ptr;
