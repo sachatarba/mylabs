@@ -46,7 +46,6 @@ int main(void)
     }
 
     return rc;
-
 }
 
 int read_strings(char array_strings[][MAX_STRING_LEN], int strings_number)
@@ -212,7 +211,6 @@ int parce_number(char string[])
             is_mobile_number = 0;
         }
     }
-
     else
     {
         int digits_counter = 0;
@@ -221,7 +219,7 @@ int parce_number(char string[])
             is_mobile_number = 0;
         }
         ++string;
-        if(*string)
+        if (*string)
         {
             while ((strchr(digits, *string) != NULL) && *string)
             {
