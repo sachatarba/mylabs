@@ -28,7 +28,7 @@ int main(void)
 
     const char *spaces_symbols = "\t\n\r ";
 
-    if (read_strings(array_strings, MAX_STRINGS) == 2)
+    if (read_strings(array_strings, MAX_STRINGS) == STRINGS_NUMBER)
     {
         char *new_string = strip_chars(array_strings[0], spaces_symbols);
         if (parce_number(new_string))
