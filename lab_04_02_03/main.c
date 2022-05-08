@@ -30,7 +30,7 @@ int main(void)
 {
     int rc = ERR_OK;
 
-    char array_strings[MAX_STRINGS][MAX_STRING_LEN];
+    char array_strings[MAX_STRINGS][MAX_STRING_LEN] = { '\0' };
 
     const char *delim = "\t\n\r .,:;!?-";
 
