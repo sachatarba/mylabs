@@ -141,14 +141,13 @@ char *modify_word(char word[])
 
 void make_string_from_words(char string[MAX_STRING_LEN], char words[][MAX_WORD_LEN], int words_number)
 {
-    const char space = ' ';
-
     for (int current_word = words_number - 1; current_word >= 0; --current_word)
     {
         if (strcmp(words[current_word], words[words_number - 1]))
         {
             strcat(string, modify_word(words[current_word]));
-            strcat(string, &space);
+            string[strlen(string)] = ' ';
+            string[strlen(string)] = '\0';
         }
     }
 
