@@ -32,7 +32,7 @@ int main(void)
 
     const char *delim = "\t\n\r .,:;!?-";
 
-    if (read_strings(array_strings, MAX_STRINGS) == 1)
+    if (read_strings(array_strings, MAX_STRINGS) == STRINGS_NUMBER)
     {
         char words[MAX_WORDS][MAX_WORD_LEN] = { '\0' };
         char ans_string[MAX_STRING_LEN] = { '\0' };
@@ -58,9 +58,6 @@ int main(void)
     }
 
     return rc;
-    // char word[100];
-    // scanf("%s", word);
-    // printf("%s", modify_word(word));
 }
 
 void split_string(char *string, char array_words[][MAX_WORD_LEN], int max_words, const char *delim, int *words_in_string)
@@ -141,13 +138,16 @@ char *modify_word(char word[])
 
 void make_string_from_words(char string[MAX_STRING_LEN], char words[][MAX_WORD_LEN], int words_number)
 {
+    int len = 0;
+
     for (int current_word = words_number - 1; current_word >= 0; --current_word)
     {
         if (strcmp(words[current_word], words[words_number - 1]))
         {
             strcat(string, modify_word(words[current_word]));
-            string[strlen(string)] = ' ';
-            string[strlen(string)] = '\0';
+            len = strlen(string);
+            string[len] = ' ';
+            string[len + 1] = '\0';
         }
     }
 
