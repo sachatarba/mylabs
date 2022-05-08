@@ -147,7 +147,7 @@ void make_unique_from_words1(char words1[][MAX_WORD_LEN], int words_number1, cha
 void make_unique_words(char words1[][MAX_WORD_LEN], int words_number1, char words2[][MAX_WORD_LEN], int words_number2, char words_unique[][MAX_WORD_LEN], int *unique_words)
 {
     make_unique_from_words1(words1, words_number1, words2, words_number2, words_unique, unique_words);
-    make_unique_from_words1(words2, words_number2, words1, words_number1, words_unique + *unique_words, unique_words);
+    make_unique_from_words1(words2, words_number2, words1, words_number1, words_unique, unique_words);
 }
 
 void print_words(char words[][MAX_WORD_LEN], int words_number)
