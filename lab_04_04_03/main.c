@@ -102,11 +102,11 @@ int parce_number(char string[])
 {
     const char *digits = "0123456789";
     int is_mobile_number = 1;
+    int digits_counter = 0;
 
     if (*string == '+')
     {
         ++string;
-        int digits_counter = 0;
         if (*string)
         {
             while ((strchr(digits, *string) != NULL) && *string)
@@ -213,7 +213,6 @@ int parce_number(char string[])
     }
     else
     {
-        int digits_counter = 0;
         if (*string != '(')
         {
             is_mobile_number = 0;
