@@ -1,0 +1,2 @@
+close open down up
+open:close:up:down
