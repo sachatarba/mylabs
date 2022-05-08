@@ -24,8 +24,6 @@ void make_unique_from_words1(char words1[][MAX_WORD_LEN], int words_number1, cha
 
 void make_unique_words(char words1[][MAX_WORD_LEN], int words_number1, char words2[][MAX_WORD_LEN], int words_number2, char words_unique[][MAX_WORD_LEN], int *unique_words);
 
-// int make_unique_words_from_strings(char array_strings[][MAX_STRING_LEN], int strings_number, char words_unique[][MAX_WORD_LEN], int *unique_words);
-
 void print_words(char array_words[][MAX_WORD_LEN], int words_number);
 
 int main(void)
@@ -38,9 +36,9 @@ int main(void)
 
     if (read_strings(array_strings, MAX_STRINGS) == STRINGS_NUMBER)
     {
-        char words1[MAX_WORDS][MAX_WORD_LEN];
-        char words2[MAX_WORDS][MAX_WORD_LEN];
-        char words_unique[ALL_WORDS][MAX_WORD_LEN];
+        char words1[MAX_WORDS][MAX_WORD_LEN] = { '\0' };
+        char words2[MAX_WORDS][MAX_WORD_LEN] = { '\0' };
+        char words_unique[ALL_WORDS][MAX_WORD_LEN] = { '\0' };
 
         int number_of_words1 = 0;
         int number_of_words2 = 0;
@@ -48,10 +46,9 @@ int main(void)
 
         split_string(array_strings[0], words1, MAX_WORDS, delim, &number_of_words1);
         split_string(array_strings[1], words2, MAX_WORDS, delim, &number_of_words2);
-        // print_words(words1, number_of_words1);
-        // print_words(words2, number_of_words2);
+
         make_unique_words(words1, number_of_words1, words2, number_of_words2, words_unique, &number_of_unique_words);
-        print_words(words_unique, number_of_unique_words);
+
         if (number_of_unique_words)
         {
             printf("Result: ");
@@ -60,11 +57,7 @@ int main(void)
         else
         {
             rc = ERR_NO_WORDS;
-        }
-        // int words_in_string = 0;
-        // split_string(array_strings[0], array_words, MAX_WORDS, delim, &words_in_string);
-        // printf("%s %s", array_strings[0], array_strings[1]);
-        
+        }       
     }
     else
     {
@@ -127,7 +120,6 @@ int word_count(char array_words[][MAX_WORD_LEN], int words_number, char *word)
     {
         if (!strcmp(array_words[current_word], word))
         {
-            // printf("debug: %s %s\n",array_words[current_word], word );
             ++word_counter;
         }
     }
@@ -142,9 +134,8 @@ void make_unique_from_words1(char words1[][MAX_WORD_LEN], int words_number1, cha
     for (int current_word = 0; current_word < words_number1; ++current_word)
     {
         counter_word_in_arrays = word_count(words1, words_number1, words1[current_word]);
-        // printf("%d", counter_word_in_arrays);
         counter_word_in_arrays += word_count(words2, words_number2, words1[current_word]);
-        // printf("%d", counter_word_in_arrays);
+
         if (counter_word_in_arrays == 1)
         {
             strcpy(words_unique[*unique_words], words1[current_word]);
@@ -166,11 +157,3 @@ void print_words(char words[][MAX_WORD_LEN], int words_number)
         printf("%s ", words[current_word]);
     }
 }
-
-// int make_unique_words_from_strings(char array_strings[][MAX_STRING_LEN], int strings_number, char words_unique[][MAX_WORD_LEN], int *unique_word)
-// {
-//     for (int current_string = 0; current_string < strings_number; ++current_string)
-//     {
-//         mak
-//     }
-// }
