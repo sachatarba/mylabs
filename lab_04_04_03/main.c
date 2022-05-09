@@ -5,7 +5,7 @@
 #define ERR_NO_STRING 1
 
 #define MAX_STRING_LEN 257
-#define MAX_STRINGS 1
+#define MAX_STRINGS 2
 #define STRINGS_NUMBER 1
 
 #define MIN_DIGITS_CNTRY_CODE 1
@@ -26,17 +26,26 @@ char *strip_chars(char string[], const char chars_to_remove[]);
 
 int parce_number(char string[]);
 
+void set_phone_status_by_min_digits(char **string, int required_min_number_of_digits, int *is_mobile_number_status);
+
+void set_phone_status_by_digits(char **string, int required_number_of_digits, int *is_mobile_number_status);
+
+void set_phone_status_by_char(char **string, char required_char, int *is_mobile_number_status);
+
+int parce_number_withno_cntry_code(char **string, int *is_mobile_number_status);
+
 int main(void)
 {
     int rc = ERR_OK;
 
     char array_strings[MAX_STRINGS][MAX_STRING_LEN] = { '\0' };
 
-    const char *spaces_symbols = "\t\n\r ";
 
     if (read_strings(array_strings, MAX_STRINGS) == STRINGS_NUMBER)
     {
+        const char *spaces_symbols = "\t\n\r ";
         char *new_string = strip_chars(array_strings[0], spaces_symbols);
+
         if (parce_number(new_string))
         {
             printf("YES");
@@ -118,7 +127,7 @@ int read_digits(char **string)
     return digits_counter;
 }
 
-void set_telephone_status_by_min_digits(char **string, int required_min_number_of_digits, int *is_mobile_number_status)
+void set_phone_status_by_min_digits(char **string, int required_min_number_of_digits, int *is_mobile_number_status)
 {
     int digits_counter = read_digits(string);
 
@@ -128,7 +137,7 @@ void set_telephone_status_by_min_digits(char **string, int required_min_number_o
     }
 }
 
-void set_telephone_status_by_required_digits(char **string, int required_number_of_digits, int *is_mobile_number_status)
+void set_phone_status_by_digits(char **string, int required_number_of_digits, int *is_mobile_number_status)
 {
     int digits_counter = read_digits(string);
 
@@ -138,7 +147,7 @@ void set_telephone_status_by_required_digits(char **string, int required_number_
     }
 }
 
-void set_telephone_status_by_required_char(char **string, char required_char, int *is_mobile_number_status)
+void set_phone_status_by_char(char **string, char required_char, int *is_mobile_number_status)
 {
     if (**string != required_char)
     {
@@ -148,27 +157,27 @@ void set_telephone_status_by_required_char(char **string, char required_char, in
     ++*string;
 }
 
-int parce_number_without_country_code(char **string, int *is_mobile_number_status)
+int parce_number_withno_cntry_code(char **string, int *is_mobile_number_status)
 {
-    set_telephone_status_by_required_char(string, '(', is_mobile_number_status);
+    set_phone_status_by_char(string, '(', is_mobile_number_status);
 
-    set_telephone_status_by_required_digits(string, DIGITS_OPERATOR_CODE, is_mobile_number_status);
+    set_phone_status_by_digits(string, DIGITS_OPERATOR_CODE, is_mobile_number_status);
 
-    set_telephone_status_by_required_char(string, ')', is_mobile_number_status);
+    set_phone_status_by_char(string, ')', is_mobile_number_status);
 
-    set_telephone_status_by_required_char(string, '-', is_mobile_number_status);
+    set_phone_status_by_char(string, '-', is_mobile_number_status);
 
-    set_telephone_status_by_required_digits(string, DIGITS_FIRST_BLOCK, is_mobile_number_status);
+    set_phone_status_by_digits(string, DIGITS_FIRST_BLOCK, is_mobile_number_status);
 
-    set_telephone_status_by_required_char(string, '-', is_mobile_number_status);
+    set_phone_status_by_char(string, '-', is_mobile_number_status);
 
-    set_telephone_status_by_required_digits(string, DIGITS_SECOND_BLOCK, is_mobile_number_status);
+    set_phone_status_by_digits(string, DIGITS_SECOND_BLOCK, is_mobile_number_status);
 
-    set_telephone_status_by_required_char(string, '-', is_mobile_number_status);
+    set_phone_status_by_char(string, '-', is_mobile_number_status);
         
-    set_telephone_status_by_required_digits(string, DIGITS_THIRD_BLOCK, is_mobile_number_status);
+    set_phone_status_by_digits(string, DIGITS_THIRD_BLOCK, is_mobile_number_status);
 
-    set_telephone_status_by_required_char(string, '\0', is_mobile_number_status);
+    set_phone_status_by_char(string, '\0', is_mobile_number_status);
 
     return *is_mobile_number_status;
 }
@@ -181,13 +190,13 @@ int parce_number(char string[])
     {
         ++string;
 
-        set_telephone_status_by_min_digits(&string, MIN_DIGITS_CNTRY_CODE, &is_mobile_number);
+        set_phone_status_by_min_digits(&string, MIN_DIGITS_CNTRY_CODE, &is_mobile_number);
 
-        parce_number_without_country_code(&string, &is_mobile_number);
+        parce_number_withno_cntry_code(&string, &is_mobile_number);
     }
     else
     {
-        parce_number_without_country_code(&string, &is_mobile_number);
+        parce_number_withno_cntry_code(&string, &is_mobile_number);
     }
 
     return is_mobile_number;
