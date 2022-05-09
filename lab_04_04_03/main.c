@@ -5,8 +5,14 @@
 #define ERR_NO_STRING 1
 
 #define MAX_STRING_LEN 257
-#define MAX_STRINGS 2
+#define MAX_STRINGS 1
 #define STRINGS_NUMBER 1
+
+#define MIN_DIGITS_CNTRY_CODE 1
+#define DIGITS_OPERATOR_CODE 3
+#define DIGITS_FIRST_BLOCK 3
+#define DIGITS_SECOND_BLOCK 2
+#define DIGITS_THIRD_BLOCK 2
 
 #define NULL ((void *)0)
 
@@ -98,210 +104,90 @@ char *strip_chars(char string[], const char chars_to_remove[])
     return new_string;
 }
 
-int parce_number(char string[])
+int read_digits(char **string)
 {
     const char *digits = "0123456789";
-    int is_mobile_number = 1;
     int digits_counter = 0;
+
+    while ((strchr(digits, **string) != NULL) && **string)
+    {
+        ++*string;
+        ++digits_counter;
+    }
+
+    return digits_counter;
+}
+
+void set_telephone_status_by_min_digits(char **string, int required_min_number_of_digits, int *is_mobile_number_status)
+{
+    int digits_counter = read_digits(string);
+
+    if (digits_counter < required_min_number_of_digits)
+    {
+        *is_mobile_number_status = 0;
+    }
+}
+
+void set_telephone_status_by_required_digits(char **string, int required_number_of_digits, int *is_mobile_number_status)
+{
+    int digits_counter = read_digits(string);
+
+    if (digits_counter != required_number_of_digits)
+    {
+        *is_mobile_number_status = 0;
+    }
+}
+
+void set_telephone_status_by_required_char(char **string, char required_char, int *is_mobile_number_status)
+{
+    if (**string != required_char)
+    {
+        *is_mobile_number_status = 0;
+    }
+
+    ++*string;
+}
+
+int parce_number_without_country_code(char **string, int *is_mobile_number_status)
+{
+    set_telephone_status_by_required_char(string, '(', is_mobile_number_status);
+
+    set_telephone_status_by_required_digits(string, DIGITS_OPERATOR_CODE, is_mobile_number_status);
+
+    set_telephone_status_by_required_char(string, ')', is_mobile_number_status);
+
+    set_telephone_status_by_required_char(string, '-', is_mobile_number_status);
+
+    set_telephone_status_by_required_digits(string, DIGITS_FIRST_BLOCK, is_mobile_number_status);
+
+    set_telephone_status_by_required_char(string, '-', is_mobile_number_status);
+
+    set_telephone_status_by_required_digits(string, DIGITS_SECOND_BLOCK, is_mobile_number_status);
+
+    set_telephone_status_by_required_char(string, '-', is_mobile_number_status);
+        
+    set_telephone_status_by_required_digits(string, DIGITS_THIRD_BLOCK, is_mobile_number_status);
+
+    set_telephone_status_by_required_char(string, '\0', is_mobile_number_status);
+
+    return *is_mobile_number_status;
+}
+
+int parce_number(char string[])
+{
+    int is_mobile_number = 1;
 
     if (*string == '+')
     {
         ++string;
-        if (*string)
-        {
-            while ((strchr(digits, *string) != NULL) && *string)
-            {
-                ++string;
-                ++digits_counter;
-            }
 
-            if (digits_counter < 1)
-            {
-                is_mobile_number = 0;
-            }
-        }
-        if (*string != '(')
-        {
-            is_mobile_number = 0;
-        }
-        ++string;
-        if (*string)
-        {
-            digits_counter = 0;
-            while ((strchr(digits, *string) != NULL) && *string)
-            {
-                ++string;
-                ++digits_counter;
-            }
-        }
-        if (digits_counter != 3)
-        {
-            is_mobile_number = 0;
-        }
-        if (*string != ')')
-        {
-            is_mobile_number = 0;
-        }
-        ++string;
-        if (*string != '-')
-        {
-            is_mobile_number = 0;
-        }
-        ++string;
-        if (*string)
-        {
-            digits_counter = 0;
+        set_telephone_status_by_min_digits(&string, MIN_DIGITS_CNTRY_CODE, &is_mobile_number);
 
-            while ((strchr(digits, *string) != NULL) && *string)
-            {
-                ++string;
-                ++digits_counter;
-            }
-        }
-
-        if (digits_counter != 3)
-        {
-            is_mobile_number = 0;
-        }
-
-        if (*string != '-')
-        {
-            is_mobile_number = 0;
-        }
-        ++string;
-        if (*string)
-        {
-            digits_counter = 0;
-
-            while ((strchr(digits, *string) != NULL) && *string)
-            {
-                ++string;
-                ++digits_counter;
-            }
-        }
-
-        if (digits_counter != 2)
-        {
-            is_mobile_number = 0;
-        }
-
-        if (*string != '-')
-        {
-            is_mobile_number = 0;
-        }
-        ++string;
-        if (*string)
-        {
-            digits_counter = 0;
-
-            while ((strchr(digits, *string) != NULL) && *string)
-            {
-                ++string;
-                ++digits_counter;
-            }
-        }
-
-        if (digits_counter != 2)
-        {
-            is_mobile_number = 0;
-        }
-        
-        if (*string != '\0')
-        {
-            is_mobile_number = 0;
-        }
+        parce_number_without_country_code(&string, &is_mobile_number);
     }
     else
     {
-        if (*string != '(')
-        {
-            is_mobile_number = 0;
-        }
-        ++string;
-        if (*string)
-        {
-            while ((strchr(digits, *string) != NULL) && *string)
-            {
-                ++string;
-                ++digits_counter;
-            }
-        }
-        if (digits_counter < 3)
-        {
-            is_mobile_number = 0;
-        }
-        if (*string != ')')
-        {
-            is_mobile_number = 0;
-        }
-        ++string;
-        if (*string != '-')
-        {
-            is_mobile_number = 0;
-        }
-        ++string;
-        if (*string)
-        {
-            digits_counter = 0;
-
-            while ((strchr(digits, *string) != NULL) && *string)
-            {
-                ++string;
-                ++digits_counter;
-            }
-        }
-
-        if (digits_counter != 3)
-        {
-            is_mobile_number = 0;
-        }
-
-        if (*string != '-')
-        {
-            is_mobile_number = 0;
-        }
-        ++string;
-        if (*string)
-        {
-            digits_counter = 0;
-
-            while ((strchr(digits, *string) != NULL) && *string)
-            {
-                ++string;
-                ++digits_counter;
-            }
-        }
-
-        if (digits_counter != 2)
-        {
-            is_mobile_number = 0;
-        }
-
-        if (*string != '-')
-        {
-            is_mobile_number = 0;
-        }
-        ++string;
-        if (*string)
-        {
-            digits_counter = 0;
-
-            while ((strchr(digits, *string) != NULL) && *string)
-            {
-                ++string;
-                ++digits_counter;
-            }
-        }
-
-        if (digits_counter != 2)
-        {
-            is_mobile_number = 0;
-        }
-        
-        if (*string != '\0')
-        {
-            is_mobile_number = 0;
-        }
+        parce_number_without_country_code(&string, &is_mobile_number);
     }
 
     return is_mobile_number;
