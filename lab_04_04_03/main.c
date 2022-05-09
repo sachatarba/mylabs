@@ -4,7 +4,7 @@
 #define ERR_OK 0
 #define ERR_NO_STRING 1
 
-#define MAX_STRING_LEN 257
+#define MAX_STRING_LEN 514
 #define MAX_STRINGS 2
 #define STRINGS_NUMBER 1
 
