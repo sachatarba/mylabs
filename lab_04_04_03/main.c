@@ -95,14 +95,14 @@ char *strip_chars_right(char string[], const char chars_to_remove[])
 {
     if (*string)
     {
-    	char *string_end = string + strlen(string) - 1;
+        char *string_end = string + strlen(string) - 1;
 
-    	while (strchr(chars_to_remove, *string_end) != NULL)
-    	{
-        	--string_end;
-    	}
+        while (strchr(chars_to_remove, *string_end) != NULL)
+        {
+            --string_end;
+        }
 
-   	 *++string_end = '\0';
+        *++string_end = '\0';
     }
 
     return string;
