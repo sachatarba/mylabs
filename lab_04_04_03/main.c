@@ -83,7 +83,7 @@ int read_strings(char array_strings[][MAX_STRING_LEN], int strings_number)
 
 char *strip_chars_left(char string[], const char chars_to_remove[])
 {
-    while (strchr(chars_to_remove, *string) != NULL)
+    while (*string && strchr(chars_to_remove, *string) != NULL)
     {
         ++string;
     }
@@ -93,14 +93,17 @@ char *strip_chars_left(char string[], const char chars_to_remove[])
 
 char *strip_chars_right(char string[], const char chars_to_remove[])
 {
-    char *string_end = string + strlen(string) - 1;
-
-    while (strchr(chars_to_remove, *string_end) != NULL)
+    if (*string)
     {
-        --string_end;
-    }
+    	char *string_end = string + strlen(string) - 1;
 
-    *++string_end = '\0';
+    	while (strchr(chars_to_remove, *string_end) != NULL)
+    	{
+        	--string_end;
+    	}
+
+   	 *++string_end = '\0';
+    }
 
     return string;
 }
@@ -118,7 +121,7 @@ int read_digits(char **string)
     const char *digits = "0123456789";
     int digits_counter = 0;
 
-    while ((strchr(digits, **string) != NULL) && **string)
+    while (**string && (strchr(digits, **string) != NULL))
     {
         ++*string;
         ++digits_counter;
