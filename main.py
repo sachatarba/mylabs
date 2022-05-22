@@ -84,7 +84,7 @@ class Mob(pg.sprite.Sprite):
     def set_scale(self, in_x, in_y):
         # self.image = pg.transform.scale(self.image, (self.image.get_width() * in_x, self.image.get_height() * in_y))
         for i in range(len(self._animation_frames)):
-            for j in  range(len(self._animation_frames[i])):
+            for j in range(len(self._animation_frames[i])):
                 self._animation_frames[i][j] = pg.transform.scale(self._animation_frames[i][j], (self.image.get_width() * in_x, self.image.get_height() * in_y))
         self.rect = pg.Rect(self.rect.x, self.rect.y, self.image.get_width() * in_x, self.image.get_height() * in_y)
 
@@ -114,6 +114,8 @@ def main():
     # Создаем игру и окно
     pg.init()
     pg.mixer.init()
+    pg.mixer.music.load('fire.mp3')
+    pg.mixer.music.play()
     screen = pg.display.set_mode((WIDTH, HEIGHT))
     pg.display.set_caption("My Game")
     clock = pg.time.Clock()
@@ -122,6 +124,8 @@ def main():
     bg = Bg("forest.png", WIDTH, HEIGHT)
     car = Mob("car.png", 1, 1)
     car.set_scale(0.7, 0.7)
+    car.use_all_frames()
+    car.set_FPS(1)
     car.set_position(WIDTH - WIDTH // 3.5, HEIGHT - HEIGHT // 8)
     explosion = Mob("flame0.png", 3, 4)
     # explosion.image.
@@ -134,8 +138,8 @@ def main():
     # stoler = Mob("stoler.png", 2, 3)
     # pchel.set_position(WIDTH // 2 + 128, HEIGHT // 2)
     # stoler.set_position(WIDTH // 2 - 128, HEIGHT // 2)
-    # bear.set_current_frames_set(6)
-    bear.set_current_frames_set(8)
+    bear.use_all_frames()
+    # bear.set_current_frames_set(8)
     explosion.use_all_frames()
     bear.set_FPS(5)
     explosion.set_FPS(2)
@@ -145,11 +149,13 @@ def main():
     all_sprites.add(bear)
     all_sprites.add(car)
     all_sprites.add(explosion)
+    # car.update()
     # all_sprites.add(pchel)
     # all_sprites.add(stoler)
 
     # Цикл игры
     running = True
+    timer = 0
     while running:
         # Держим цикл на правильной скорости
         clock.tick(FPS)
@@ -168,6 +174,78 @@ def main():
         # car.draw(screen)
         # После отрисовки всего, переворачиваем экран
         pg.display.flip()
+
+        timer += 1
+
+        if timer == 10 ** 3:
+            break
+
+    while bear.rect.x != car.rect.x and running:
+        clock.tick(FPS)
+        for event in pg.event.get():
+            # check for closing window
+            if event.type == pg.QUIT:
+                running = False
+
+        bear.rect.x += 1
+        bear.set_current_frames_set(8)
+        bear.update()
+        explosion.update()
+        all_sprites.draw(screen)
+        pg.display.flip()
+
+    timer = 0
+    all_sprites.remove(bear)
+    explosion.set_FPS(1)
+    bear_head = Mob("bear.png", 1, 1)
+    bear_head.image = bear_head.image.subsurface(pg.Rect(0, 0, 256, 85))
+    bear_head.rect = bear_head.image.get_rect()
+    bear_head.set_position(WIDTH - WIDTH // 3.9, HEIGHT - HEIGHT // 4.6)
+    all_sprites.add(bear_head)
+    while running:
+        clock.tick(FPS)
+        for event in pg.event.get():
+            # check for closing window
+            if event.type == pg.QUIT:
+                running = False
+
+
+        if timer == 100:
+            fire1 = Mob("flame0.png", 3, 4)
+            fire1.set_scale(0.2, 0.2)
+            fire1.use_all_frames()
+            fire1.set_FPS(2)
+            fire1.set_position(WIDTH - WIDTH // 8, HEIGHT - HEIGHT // 4.5)
+            all_sprites.add(fire1)
+            fire1.update()
+        if timer == 200:
+            fire2 = Mob("flame0.png", 3, 4)
+            fire2.set_scale(0.2, 0.2)
+            fire2.use_all_frames()
+            fire2.set_FPS(2)
+            fire2.set_position(WIDTH - WIDTH // 6, HEIGHT - HEIGHT // 4)
+            all_sprites.add(fire2)
+            fire2.update()
+        if timer == 300:
+            fire3 = Mob("flame0.png", 3, 4)
+            fire3.use_all_frames()
+            fire3.set_scale(0.2, 0.2)
+            fire3.set_position(WIDTH // 2, HEIGHT - HEIGHT // 4)
+            all_sprites.add(fire3)
+            fire3.set_FPS(2)
+            fire3.update()
+        explosion.update()
+        if timer > 100:
+            fire1.update()
+        if timer > 200:
+            fire2.update()
+        if timer > 300:
+            fire3.update()
+        all_sprites.draw(screen)
+        pg.display.flip()
+        if timer <= 300:
+            timer += 1
+
 
     pg.quit()
 
