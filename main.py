@@ -86,6 +86,7 @@ class Mob(pg.sprite.Sprite):
         for i in range(len(self._animation_frames)):
             for j in range(len(self._animation_frames[i])):
                 self._animation_frames[i][j] = pg.transform.scale(self._animation_frames[i][j], (self.image.get_width() * in_x, self.image.get_height() * in_y))
+        self.image = self._animation_frames[self._current_frames_set][self._current_frame]
         self.rect = pg.Rect(self.rect.x, self.rect.y, self.image.get_width() * in_x, self.image.get_height() * in_y)
 
 
@@ -126,14 +127,14 @@ def main():
     car.set_scale(0.7, 0.7)
     car.use_all_frames()
     car.set_FPS(1)
-    car.set_position(WIDTH - WIDTH // 3.5, HEIGHT - HEIGHT // 8)
+    car.set_position(WIDTH - WIDTH // 3.5 - 50, HEIGHT - HEIGHT // 8 - 55)
     explosion = Mob("flame0.png", 3, 4)
     # explosion.image.
     # explosion.image.set_colorkey(WHITE)
     bg.rect.y -= 40
     bear.set_position(WIDTH // 2 - WIDTH // 4, HEIGHT - HEIGHT // 5)
     explosion.set_scale(0.2, 0.2)
-    explosion.set_position(WIDTH - WIDTH // 9, HEIGHT - HEIGHT // 5)
+    explosion.set_position(WIDTH - WIDTH // 9 - 25, HEIGHT - HEIGHT // 5 - 55)
     # pchel = Mob("pchel.png", 8, 8)
     # stoler = Mob("stoler.png", 2, 3)
     # pchel.set_position(WIDTH // 2 + 128, HEIGHT // 2)
@@ -215,7 +216,7 @@ def main():
             fire1.set_scale(0.2, 0.2)
             fire1.use_all_frames()
             fire1.set_FPS(2)
-            fire1.set_position(WIDTH - WIDTH // 8, HEIGHT - HEIGHT // 4.5)
+            fire1.set_position(WIDTH - WIDTH // 8 - 50, HEIGHT - HEIGHT // 4.5 - 55)
             all_sprites.add(fire1)
             fire1.update()
         if timer == 200:
@@ -223,14 +224,14 @@ def main():
             fire2.set_scale(0.2, 0.2)
             fire2.use_all_frames()
             fire2.set_FPS(2)
-            fire2.set_position(WIDTH - WIDTH // 6, HEIGHT - HEIGHT // 4)
+            fire2.set_position(WIDTH - WIDTH // 6 - 50, HEIGHT - HEIGHT // 4 - 55)
             all_sprites.add(fire2)
             fire2.update()
         if timer == 300:
             fire3 = Mob("flame0.png", 3, 4)
             fire3.use_all_frames()
             fire3.set_scale(0.2, 0.2)
-            fire3.set_position(WIDTH // 2, HEIGHT - HEIGHT // 4)
+            fire3.set_position(WIDTH // 2 - 50, HEIGHT - HEIGHT // 4 - 55)
             all_sprites.add(fire3)
             fire3.set_FPS(2)
             fire3.update()
