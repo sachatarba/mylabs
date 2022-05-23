@@ -33,8 +33,10 @@ class Mob(pg.sprite.Sprite):
         sprites_set = pg.image.load(image_name)
         sprites_set_size_x, sprites_set_size_y = sprites_set.get_size()
         # print(sprites_set.get_width())
+        self._is_animation_started = False
         self.frame_size_x, self.frame_size_y = sprites_set_size_x // sprites_cols, sprites_set_size_y // sprites_rows
         self._animation_frames = []
+        self._all_animation_frames = []
         self._current_frames_set = 0
         self._current_frame = 0
         self._use_all_frames = False
@@ -49,11 +51,18 @@ class Mob(pg.sprite.Sprite):
                 self._animation_frames[current_row].append(sprites_set.subsurface(
                     pg.Rect(current_col * self.frame_size_x, current_row * self.frame_size_y, self.frame_size_x,
                             self.frame_size_y)))
+                self._all_animation_frames.append(sprites_set.subsurface(
+                    pg.Rect(current_col * self.frame_size_x, current_row * self.frame_size_y, self.frame_size_x,
+                            self.frame_size_y)))
         # self.image = pg.image.load(image_name)
         self.image = self._animation_frames[0][0]
         # self.bear = pg.image.load("bear.png")
         # self.image = self.bear.subsurface(pg.Rect(0, 0, 2048 // 8, 2048 // 8))
         # print(self.frame_size_x, self.frame_size_y)
+
+    def animate(self, start_frame, end_frame):
+        self.is_animation_started = True
+        self.image = self._all_animation_frames[start_frame]
 
     def set_sprite(self, sprite):
         self.image = sprite
